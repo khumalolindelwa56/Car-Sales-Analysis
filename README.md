@@ -29,7 +29,11 @@ GitHub → Version control and project documentation
 
 # Results
 Identified the top-selling car brands and models contributing most to revenue.
+
 Found seasonal trends indicating peak sales months.
+
 Determined that car price and engine size significantly impact sales volume.
+
 Cleaned and structured data for easy use in dashboards and reports.
+
 Developed a dashboard showcasing KPIs such as total sales, average price, and sales by region.
