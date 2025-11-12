@@ -1,0 +1,41 @@
+select * 
+from `workspace`.`car_dealer`.`car_sales` 
+limit 100;
+
+select
+  coalesce(nullif(make, ''), 'Unknown') as make,
+  coalesce(nullif(model, ''), 'Unknown') as model,
+  coalesce(nullif(trim, ''), 'Unknown') as trim,
+  coalesce(nullif(body, ''), 'Unknown') as body,
+  coalesce(nullif(transmission, ''), 'Unknown') as transmission,
+  coalesce(nullif(vin, ''), 'Unknown') as vin,
+  coalesce(nullif(state, ''), 'Unknown') as state,
+  condition,
+  odometer,
+  coalesce(nullif(color, ''), 'Unknown') as color,
+  coalesce(nullif(interior, ''), 'Unknown') as interior,
+  coalesce(nullif(seller, ''), 'Unknown') as seller,
+  mmr,
+  sellingprice,
+  saledate,
+  sellingprice as total_revenue,
+  (sellingprice - mmr) / sellingprice as profit_margin,
+  case
+    when (sellingprice - mmr) / sellingprice >= 0.2 then 'High'
+    when (sellingprice - mmr) / sellingprice >= 0.1 then 'Medium'
+    else 'Low'
+  end as profit_margin_tier,
+  date_format(
+    try_to_timestamp(
+      substring(saledate, 5),
+      'MMM dd yyyy HH:mm:ss'
+    ),
+    'MMMM yyyy'
+  ) as sale_month_year,
+  quarter(
+    try_to_timestamp(
+      substring(saledate, 5),
+      'MMM dd yyyy HH:mm:ss'
+    )
+  ) as sale_quarter
+from `workspace`.`car_dealer`.`car_sales`
